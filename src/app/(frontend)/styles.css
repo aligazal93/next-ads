@@ -1,164 +1,202 @@
-:root {
-  --font-mono: 'Roboto Mono', monospace;
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'NextFont';
+  src: url('/fonts/thmanyah.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
 }
-
-* {
-  box-sizing: border-box;
-}
-
-html {
-  font-size: 18px;
-  line-height: 32px;
-
-  background: rgb(0, 0, 0);
-  -webkit-font-smoothing: antialiased;
-}
-
-html,
-body,
-#app {
-  height: 100%;
-}
-
 body {
-  font-family: system-ui;
-  font-size: 18px;
-  line-height: 32px;
-
-  margin: 0;
-  color: rgb(1000, 1000, 1000);
-
-  @media (max-width: 1024px) {
-    font-size: 15px;
-    line-height: 24px;
-  }
+  font-family: 'NextFont', sans-serif;
 }
 
-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
+@theme {
+  --font-primary: 'NextFont', sans-serif;
+  --color-primary: #f51160;
+  --color-secondary: #fc8948;
+
+  --color-black: #000;
+
+  --text-custom: 12px;
+  --text-14: 14px;
+  --text-16: 16px;
+  --text-18: 18px;
+  --text-20: 20px;
+  --text-22: 22px;
+  --text-24: 24px;
+  --text-26: 26px;
+  --text-28: 28px;
+}
+.bg-primary-gradient {
+  background: linear-gradient(to bottom, #f51160, #fc8948);
+}
+@utility text-primary-gradient {
+  background: linear-gradient(180deg, #f51160 0%, #fc8948 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  transition: all 0.3s ease-in-out;
+}
+@utility bg-primary-gradient {
+  background: linear-gradient(180deg, #f51160 0%, #fc8948 100%);
+  transition: all 0.3s ease-in-out;
+
+}
+.hero-smoke {
+  position: absolute;
+  width: 55vw;
+  height: 75vh;
+  opacity: 0.8;
+  will-change: transform, opacity;
+  transform: translate3d(0, 0, 0);
 }
 
-h1 {
-  margin: 40px 0;
-  font-size: 64px;
-  line-height: 70px;
-  font-weight: bold;
-
-  @media (max-width: 1024px) {
-    margin: 24px 0;
-    font-size: 42px;
-    line-height: 42px;
-  }
-
-  @media (max-width: 768px) {
-    font-size: 38px;
-    line-height: 38px;
-  }
-
-  @media (max-width: 400px) {
-    font-size: 32px;
-    line-height: 32px;
-  }
+.hero-smoke-left-one {
+  top: -15%;
+  left: -22%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(245, 17, 96, 0.42) 0%,
+    rgba(245, 17, 96, 0.16) 35%,
+    rgba(245, 17, 96, 0.04) 55%,
+    transparent 72%
+  );
+  animation: smoke-left-one 14s ease-in-out infinite alternate;
 }
 
-p {
-  margin: 24px 0;
-
-  @media (max-width: 1024px) {
-    margin: calc(var(--base) * 0.75) 0;
-  }
+.hero-smoke-left-two {
+  top: 40%;
+  left: -30%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(252, 137, 72, 0.26) 0%,
+    rgba(245, 17, 96, 0.1) 40%,
+    transparent 70%
+  );
+  animation: smoke-left-two 18s ease-in-out infinite alternate;
 }
 
-a {
-  color: currentColor;
+.hero-smoke-right-one {
+  top: 10%;
+  right: -27%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(245, 17, 96, 0.46) 0%,
+    rgba(245, 17, 96, 0.16) 35%,
+    rgba(252, 137, 72, 0.06) 55%,
+    transparent 72%
+  );
+  animation: smoke-right-one 16s ease-in-out infinite alternate;
+}
 
-  &:focus {
-    opacity: 0.8;
-    outline: none;
+.hero-smoke-right-two {
+  top: 48%;
+  right: -22%;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(252, 137, 72, 0.35) 0%,
+    rgba(245, 17, 96, 0.12) 40%,
+    transparent 72%
+  );
+  animation: smoke-right-two 20s ease-in-out infinite alternate;
+}
+
+@keyframes smoke-left-one {
+  0% {
+    transform: translate3d(-5%, -4%, 0) scale(1) rotate(-8deg);
+    opacity: 0.65;
   }
 
-  &:active {
+  50% {
+    transform: translate3d(8%, 5%, 0) scale(1.15) rotate(4deg);
+    opacity: 0.9;
+  }
+
+  100% {
+    transform: translate3d(2%, 12%, 0) scale(1.05) rotate(8deg);
     opacity: 0.7;
-    outline: none;
   }
 }
 
-svg {
-  vertical-align: middle;
+@keyframes smoke-left-two {
+  0% {
+    transform: translate3d(-8%, 5%, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(12%, -8%, 0) scale(1.2);
+  }
 }
 
-.home {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  height: 100vh;
-  padding: 45px;
-  max-width: 1024px;
+@keyframes smoke-right-one {
+  0% {
+    transform: translate3d(5%, -8%, 0) scale(1.05) rotate(6deg);
+    opacity: 0.7;
+  }
+
+  50% {
+    transform: translate3d(-10%, 8%, 0) scale(1.2) rotate(-5deg);
+    opacity: 0.95;
+  }
+
+  100% {
+    transform: translate3d(-3%, 15%, 0) scale(1.08) rotate(-10deg);
+    opacity: 0.75;
+  }
+}
+
+@keyframes smoke-right-two {
+  0% {
+    transform: translate3d(10%, 8%, 0) scale(1);
+  }
+
+  100% {
+    transform: translate3d(-12%, -5%, 0) scale(1.22);
+  }
+}
+
+.container {
+  max-width: 1400px;
   margin: 0 auto;
-  overflow: hidden;
+}
 
-  @media (max-width: 400px) {
-    padding: 24px;
+@media (max-width: 768px) {
+  .hero-smoke {
+    position: absolute;
+    width: 65vw;
+    height: 85vh;
+    opacity: 1;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+  }
+  .hero-smoke-left-one {
+    top: -15%;
+    left: -22%;
+    background: radial-gradient(
+      ellipse at center,
+      rgba(245, 17, 96, 0.62) 0%,
+      rgba(245, 17, 96, 0.28) 35%,
+      rgba(245, 17, 96, 0.08) 58%,
+      transparent 75%
+    );
+    animation: smoke-left-one 14s ease-in-out infinite alternate;
   }
 
-  .content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1;
-
-    h1 {
-      text-align: center;
-    }
+  .hero-smoke-left-one,
+  .hero-smoke-left-two {
+    left: -60%;
   }
 
-  .links {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-
-    a {
-      text-decoration: none;
-      padding: 0.25rem 0.5rem;
-      border-radius: 4px;
-    }
-
-    .admin {
-      color: rgb(0, 0, 0);
-      background: rgb(1000, 1000, 1000);
-      border: 1px solid rgb(0, 0, 0);
-    }
-
-    .docs {
-      color: rgb(1000, 1000, 1000);
-      background: rgb(0, 0, 0);
-      border: 1px solid rgb(1000, 1000, 1000);
-    }
+  .hero-smoke-right-one,
+  .hero-smoke-right-two {
+    right: -60%;
   }
+}
 
-  .footer {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-
-    @media (max-width: 1024px) {
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    .codeLink {
-      text-decoration: none;
-      padding: 0 0.5rem;
-      background: rgb(60, 60, 60);
-      border-radius: 4px;
-    }
+@media (prefers-reduced-motion: reduce) {
+  .hero-smoke {
+    animation: none;
   }
 }

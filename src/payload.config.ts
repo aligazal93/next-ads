@@ -7,18 +7,38 @@ import sharp from 'sharp'
 
 import { Users } from './collections/Users'
 import { Media } from './collections/Media'
+import { HomePage } from './globals/HomePage'
+import { ar } from '@payloadcms/translations/languages/ar'
+import { SiteSettings } from './globals/SiteSetting'
+import { Brands } from './collections/Brands'
+import { Projects } from './collections/Projects'
+import { Services } from './collections/Services'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  i18n: {
+    supportedLanguages: {
+      ar,
+    },
+    fallbackLanguage: 'ar',
+  },
   admin: {
     user: Users.slug,
+    components: {
+      graphics: {
+        Logo: '/components/admin/Logo',
+        Icon: '/components/admin/Icon',
+      },
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media],
+  collections: [Users, Media, Brands, Projects, Services],
+  globals: [HomePage, SiteSettings],
+
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',
   typescript: {
