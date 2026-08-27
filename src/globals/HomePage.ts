@@ -173,21 +173,50 @@ export const HomePage: GlobalConfig = {
           name: 'titleLineOne',
           type: 'text',
           label: 'العنوان - السطر الأول',
+          defaultValue: 'حيث تتحول',
         },
         {
           name: 'titleLineTwo',
           type: 'text',
           label: 'العنوان - السطر الثاني',
+          defaultValue: 'الأفكار إلى هوية.',
         },
+
         {
-          name: 'subtitle',
-          type: 'text',
-          label: 'النص الصغير',
+          name: 'tags',
+          type: 'array',
+          label: 'العبارات الصغيرة',
+          maxRows: 3,
+          fields: [
+            {
+              name: 'text',
+              type: 'text',
+              label: 'النص',
+              required: true,
+            },
+          ],
         },
+
         {
-          name: 'description',
-          type: 'textarea',
-          label: 'الوصف',
+          name: 'qrCode',
+          type: 'group',
+          label: 'QR Code',
+          fields: [
+            {
+              name: 'url',
+              type: 'text',
+              label: 'الرابط',
+              admin: {
+                description: 'ضع رابط واتساب أو صفحة التواصل وسيتم إنشاء QR Code منه',
+              },
+            },
+            {
+              name: 'caption',
+              type: 'text',
+              label: 'النص أسفل QR',
+              defaultValue: 'امسح الكود وابدأ الحديث',
+            },
+          ],
         },
       ],
     },

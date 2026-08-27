@@ -5,7 +5,7 @@ export default function Icon() {
     <img
       src="/images/next-ad-icon.png"
       alt="Next Ad"
-      style={{ width: '182px', height: '60px', objectFit: 'fill' }}
+      style={{ width: '320px', height: '20px', objectFit: 'contain' }}
     />
   )
 }

@@ -6,10 +6,10 @@ import { useState } from 'react'
 
 const navLinks = [
   { label: 'الرئيسية', href: '/' },
-  { label: 'عن نكست', href: '#about' },
-  { label: 'المشاريع', href: '#projects' },
-  { label: 'خدماتنا', href: '#services' },
-  { label: 'تواصل معنا', href: '#contact' },
+  { label: 'عن نكست', href: '/#about' },
+  { label: 'خدماتنا', href: '/#services' },
+  { label: 'مشاريعنا', href: '/#projects' },
+  { label: 'تواصل معنا', href: '/#contact' },
 ]
 
 export const Header = () => {
@@ -24,13 +24,13 @@ export const Header = () => {
 
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-5 sm:px-8 lg:px-12">
         <div className="flex h-[90px] items-center justify-between lg:grid lg:grid-cols-[1fr_auto_1fr]">
-          <div className="flex items-center justify-start lg:justify-self-start">
+          <div className="flex items-center justify-start ">
             <Link href="/" aria-label="Next Ad" className="flex items-center">
               <Image
-                src="/images/next-ad-icon.png"
+                src="/images/brand.png"
                 width={120}
                 height={70}
-                className="h-[58px] w-auto object-contain sm:h-[65px] lg:h-[70px] scale-180"
+                className="h-[70px] w-auto object-fill sm:h-[65px] lg:h-[70px] "
                 priority
                 alt="Next Ad"
               />

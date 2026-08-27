@@ -104,7 +104,7 @@ export default function Contact() {
       ref={sectionRef}
       id="contact"
       dir="rtl"
-      className="relative flex min-h-screen items-center mt-[100px] overflow-hidden bg-[#050505] px-5 py-20 text-white"
+      className="relative flex min-h-screen items-center mt-[50px] lg:mt-[100px] overflow-hidden bg-[#050505] px-5 py-0 text-white"
     >
       {/* ================= BACKGROUND ================= */}
 

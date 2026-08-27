@@ -13,6 +13,7 @@ import { SiteSettings } from './globals/SiteSetting'
 import { Brands } from './collections/Brands'
 import { Projects } from './collections/Projects'
 import { Services } from './collections/Services'
+import { ContactUs } from './collections/ContactUs'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -36,7 +37,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [Users, Media, Brands, Projects, Services],
+  collections: [Users, Media, Brands, Projects, Services, ContactUs],
   globals: [HomePage, SiteSettings],
 
   editor: lexicalEditor(),
@@ -46,9 +47,10 @@ export default buildConfig({
   },
   db: postgresAdapter({
     pool: {
-      connectionString: process.env.DATABASE_URL || '',
+      connectionString: process.env.DATABASE_URL,
     },
   }),
+
   sharp,
   plugins: [],
 })

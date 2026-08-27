@@ -29,7 +29,6 @@ export default async function HomePage() {
       <Services />
       <Contact />
       <FeaturedSection />
-      <IdeaCTA />
     </>
   )
 }

@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -13,6 +13,7 @@ gsap.registerPlugin(ScrollTrigger, useGSAP)
 const projects = [
   {
     id: 1,
+    slug: 'almaghrabi-iphone',
     category: 'الواجهات واللافتات',
     title: 'المغيربي iPhone',
     description:
@@ -21,6 +22,7 @@ const projects = [
   },
   {
     id: 2,
+    slug: 'damascus-pastries',
     category: 'الطباعة والمواد الدعائية',
     title: 'معجنات دمشقية',
     description:
@@ -58,6 +60,16 @@ export default function Projects() {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
 
+  const [visibleProjects, setVisibleProjects] = useState(4)
+
+  const handleLoadMore = () => {
+    setVisibleProjects((prev) => Math.min(prev + 4, projects.length))
+
+    setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 100)
+  }
+
   useGSAP(
     () => {
       const section = sectionRef.current
@@ -73,27 +85,34 @@ export default function Projects() {
           return Math.max(0, track.scrollWidth - viewport.clientWidth)
         }
 
-        const horizontalTween = gsap.to(track, {
-          x: () => -getScrollAmount(),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: section,
-
-            start: 'top top',
-
-            end: () => `+=${getScrollAmount() + window.innerHeight}`,
-
-            pin: true,
-
-            pinSpacing: true,
-
-            scrub: 1,
-
-            anticipatePin: 1,
-
-            invalidateOnRefresh: true,
+        const horizontalTween = gsap.fromTo(
+          track,
+          {
+            x: () => -getScrollAmount(),
           },
-        })
+          {
+            x: 0,
+            ease: 'none',
+
+            scrollTrigger: {
+              trigger: section,
+
+              start: 'top top',
+
+              end: () => `+=${getScrollAmount() + window.innerHeight}`,
+
+              pin: true,
+
+              pinSpacing: true,
+
+              scrub: 1,
+
+              anticipatePin: 1,
+
+              invalidateOnRefresh: true,
+            },
+          },
+        )
 
         const images = gsap.utils.toArray<HTMLElement>('.project-image')
 
@@ -110,7 +129,9 @@ export default function Projects() {
 
               scrollTrigger: {
                 trigger: section,
+
                 start: 'top top',
+
                 end: () => `+=${getScrollAmount()}`,
 
                 scrub: 1,
@@ -186,14 +207,18 @@ export default function Projects() {
   )
 
   return (
-    <section ref={sectionRef} className="relative bg-[#050505] lg:h-screen lg:overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="relative bg-[#050505] lg:h-screen lg:overflow-hidden"
+    >
       <div className="flex h-full flex-col">
-        <div className="text-right mx-auto w-full max-w-[1400px]  px-6 pb-8 pt-20 lg:px-10 lg:pb-6 lg:pt-10">
-          <span className="mb-3 mt-[30px] lg:mt-[100px] block text-[20px] mb-4 font-semibold uppercase  text-primary">
+        <div className="text-right mx-auto w-full max-w-[1400px] px-6 pb-8 pt-20 lg:px-10 lg:pb-6 lg:pt-10">
+          <span className="mb-6 mt-[10px] lg:mt-[100px] block text-[20px] mb-4 font-semibold uppercase text-primary">
             المشاريع
           </span>
 
-          <h2 className="text-4xl font-bold leading-[0.95] mb-[30px] lg:mb-[100px] tracking-tight sm:text-5xl lg:text-4xl">
+          <h2 className="text-[20px] font-bold leading-[1.50] mb-[10px] lg:mb-[50px] sm:text-[26px] lg:text-[32px]">
             أفكار خرجت من الشاشة إلى الواقع
           </h2>
         </div>
@@ -203,11 +228,38 @@ export default function Projects() {
             ref={trackRef}
             className="flex w-full flex-col gap-8 px-6 pb-24 lg:h-full lg:w-max lg:flex-row lg:items-center lg:gap-8 lg:px-10 lg:pb-8"
           >
-            {projects.map((project) => (
+            <div className="hidden mx-auto  lg:w-[400px] shrink-0 items-center justify-center lg:flex lg:justify-center">
+              <div className="text-center block mx-auto">
+                <div className="group relative w-fit mx-auto cursor-pointer">
+                  <span className="absolute inset-0 rounded-full bg-red-500/20 blur-xl opacity-0 scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-125" />
+
+                  <Image
+                    className="relative block mx-auto transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1 group-hover:rotate-3 group-hover:drop-shadow-[0_8px_18px_rgba(239,68,68,0.35)]"
+                    src="/images/next-ad-icon.png"
+                    width={80}
+                    height={14}
+                    alt="arrow-right"
+                  />
+                </div>
+
+                <Link
+                  href="/projects"
+                  className="group relative flex h-[48px] min-w-[160px] items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)]"
+                >
+                  <span className="absolute inset-0 translate-y-full bg-primary-gradient transition-transform duration-500 ease-out group-hover:translate-y-0" />
+
+                  <span className="relative z-10">عرض جميع المشاريع</span>
+                </Link>
+              </div>
+            </div>
+
+            {projects.map((project, index) => (
               <article
                 key={project.id}
                 dir="rtl"
-                className="project-card group w-full shrink-0 overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#111111] lg:w-[58vw] xl:w-[50vw] 2xl:w-[46vw]"
+                className={`project-card group w-full shrink-0 overflow-hidden rounded-[22px] border border-white/[0.08] bg-[#111111] lg:w-[58vw] xl:w-[50vw] 2xl:w-[46vw] ${
+                  index >= visibleProjects ? 'hidden lg:block' : ''
+                }`}
               >
                 <div className="grid min-h-[370px] grid-cols-1 md:grid-cols-2">
                   {/* ================= CONTENT ================= */}
@@ -233,15 +285,15 @@ export default function Projects() {
 
                     {/* Button */}
 
-                    <button
-                      type="button"
+                    <Link
+                      href={`/projects/${project.slug}`}
                       className="group/button cursor-pointer flex w-fit items-center gap-2 text-sm font-semibold text-[#ef4444]"
                     >
                       عرض التفاصيل
                       <span className="transition-transform duration-300 group-hover/button:-translate-x-1">
                         ←
                       </span>
-                    </button>
+                    </Link>
                   </div>
 
                   {/* ================= IMAGE ================= */}
@@ -263,28 +315,28 @@ export default function Projects() {
               </article>
             ))}
 
-            <div className="hidden shrink-0 w-[300px] items-center justify-center lg:flex">
-              <div className="text-center block mx-auto">
-                <div className="group relative w-fit mx-auto cursor-pointer">
-                  <span className="absolute inset-0 rounded-full bg-red-500/20 blur-xl opacity-0 scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-125" />
-
-                  <Image
-                    className="relative block mx-auto transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1 group-hover:rotate-3 group-hover:drop-shadow-[0_8px_18px_rgba(239,68,68,0.35)]"
-                    src="/images/next-ad-icon.png"
-                    width={80}
-                    height={14}
-                    alt="arrow-right"
-                  />
-                </div>
-                <Link
-                  href="/projects"
-                  className="group relative flex h-[48px] min-w-[160px] items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)]"
+            {visibleProjects < projects.length ? (
+              <div className="flex w-full justify-center pt-2 lg:hidden">
+                <button
+                  type="button"
+                  onClick={handleLoadMore}
+                  className="group relative flex h-[48px] min-w-[170px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)]"
                 >
                   <span className="absolute inset-0 translate-y-full bg-primary-gradient transition-transform duration-500 ease-out group-hover:translate-y-0" />
-                  <span className="relative z-10">عرض جميع المشاريع</span>
-                </Link>
+
+                  <span className="relative z-10">تحميل المزيد</span>
+                </button>
               </div>
-            </div>
+            ) : (
+              <Link
+                href="/projects"
+                className="group relative flex h-[48px] min-w-[160px] items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)] lg:hidden block"
+              >
+                <span className="absolute inset-0 translate-y-full bg-primary-gradient transition-transform duration-500 ease-out group-hover:translate-y-0" />
+
+                <span className="relative z-10">عرض جميع المشاريع</span>
+              </Link>
+            )}
           </div>
         </div>
       </div>

@@ -1,7 +1,5 @@
 // src/components/admin/Logo.tsx
 
 export default function Logo() {
-  return (
-    <img src="/images/next-ad-logos.png" alt="Next Ad" style={{ width: '340px', height: 'auto' }} />
-  )
+  return <img src="/images/logo-1.png" alt="Next Ad" className="block mx-auto" />
 }

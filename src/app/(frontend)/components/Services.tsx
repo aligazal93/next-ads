@@ -1,7 +1,7 @@
 'use client'
 
 import Image from 'next/image'
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
@@ -16,56 +16,56 @@ const services = [
     title: 'الواجهات واللافتات',
     description:
       'نصمم وننفذ الواجهات واللافتات الخارجية والداخلية بأعلى جودة، باستخدام أحدث الخامات وتقنيات الإضاءة لإظهار علامتك بشكل احترافي.',
-    image: '/images/project-1.png',
+    image: '/images/serv-1.png',
   },
   {
     id: 2,
     title: 'الطباعة والمواد الدعائية',
     description:
       'نحوّل هويتك إلى مطبوعات احترافية، من بطاقات الأعمال والبروشورات إلى المطبوعات والمواد الدعائية بمختلف المقاسات.',
-    image: '/images/project-2.png',
+    image: '/images/serv-2.png',
   },
   {
     id: 3,
     title: 'المنتجات الترويجية',
     description:
       'نقدم منتجات ترويجية مخصصة تحمل علامتك التجارية وتترك انطباعاً مميزاً لدى عملائك وتزيد من حضور علامتك.',
-    image: '/images/project-1.png',
+    image: '/images/serv-3.png',
   },
   {
     id: 4,
     title: 'تجهيز المعارض',
     description:
       'نصمم وننفذ أجنحة المعارض والمساحات التجارية بشكل متكامل يعكس هوية علامتك ويمنح الزوار تجربة مختلفة.',
-    image: '/images/project-2.png',
+    image: '/images/serv-2.png',
   },
   {
     id: 5,
     title: 'الهوية البصرية',
     description:
       'نبني هوية بصرية متكاملة تبدأ من الفكرة والشعار وتمتد لكل نقاط التواصل لتظهر علامتك بصورة قوية ومتناسقة.',
-    image: '/images/project-1.png',
+    image: '/images/serv-1.png',
   },
   {
     id: 6,
     title: 'المنتجات الترويجية',
     description:
       'نقدم منتجات ترويجية مخصصة تحمل علامتك التجارية وتترك انطباعاً مميزاً لدى عملائك وتزيد من حضور علامتك.',
-    image: '/images/project-1.png',
+    image: '/images/serv-3.png',
   },
   {
     id: 7,
     title: 'تجهيز المعارض',
     description:
       'نصمم وننفذ أجنحة المعارض والمساحات التجارية بشكل متكامل يعكس هوية علامتك ويمنح الزوار تجربة مختلفة.',
-    image: '/images/project-2.png',
+    image: '/images/serv-2.png',
   },
   {
     id: 8,
     title: 'الهوية البصرية',
     description:
       'نبني هوية بصرية متكاملة تبدأ من الفكرة والشعار وتمتد لكل نقاط التواصل لتظهر علامتك بصورة قوية ومتناسقة.',
-    image: '/images/project-1.png',
+    image: '/images/serv-3.png',
   },
 ]
 
@@ -74,6 +74,16 @@ export default function Services() {
   const viewportRef = useRef<HTMLDivElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const scrollTriggerRef = useRef<ScrollTrigger | null>(null)
+
+  const [visibleServices, setVisibleServices] = useState(4)
+
+  const handleLoadMore = () => {
+    setVisibleServices((prev) => Math.min(prev + 4, services.length))
+
+    setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 100)
+  }
 
   useGSAP(
     () => {
@@ -203,15 +213,19 @@ export default function Services() {
   )
 
   return (
-    <section ref={sectionRef} className="relative bg-[#050505] lg:h-screen lg:overflow-hidden">
+    <section
+      ref={sectionRef}
+      id="services"
+      className="relative bg-[#050505] lg:h-screen lg:overflow-hidden"
+    >
       <div className="flex h-full flex-col">
         <div className="text-center mx-auto w-full max-w-[1400px]  px-6 pb-8 pt-20 lg:px-10 lg:pb-6 lg:pt-10">
-          <span className="mb-3 mt-[30px] lg:mt-[100px] block text-[20px] mb-4 font-semibold uppercase  text-primary">
+          <span className="mb-3 mt-[0px] lg:mt-[100px] block text-[20px] mb-4 font-semibold uppercase  text-primary">
             خدماتنا
           </span>
 
-          <h2 className="text-4xl font-bold leading-[0.95] mb-[30px] lg:mb-[100px] tracking-tight sm:text-5xl lg:text-4xl">
-            كل ما تحتاجه علامتك لتظهر كما يجب.
+          <h2 className="text-[22px] font-bold leading-[0.95] mb-[30px] lg:mb-[100px] tracking-tight sm:text-5xl lg:text-4xl">
+            كل ما تحتاجه علامتك لتظهر كما يجب
           </h2>
         </div>
 
@@ -226,10 +240,10 @@ export default function Services() {
               <article
                 key={service.id}
                 dir="rtl"
-                className="service-card group relative h-[380px] w-[82vw] max-w-[360px] shrink-0 snap-start overflow-hidden rounded-[16px] border border-white/[0.12] bg-[#111] sm:w-[360px] lg:h-[355px] lg:w-[335px] xl:h-[390px] xl:w-[365px]"
+                className={`service-card group mb-4 relative h-[380px] w-full shrink-0 snap-start overflow-hidden rounded-[16px] border border-white/[0.12] bg-[#111] sm:w-[360px] lg:h-[355px] lg:w-[335px] xl:h-[390px] xl:w-[365px] ${
+                  service.id >= visibleServices ? 'hidden lg:block' : ''
+                }`}
               >
-                {/* ================= IMAGE ================= */}
-
                 <Image
                   src={service.image}
                   alt={service.title}
@@ -273,6 +287,49 @@ export default function Services() {
                 <div className="pointer-events-none absolute -right-20 -top-20 h-40 w-40 rounded-full bg-white/10 opacity-0 blur-[60px] transition-all duration-700 group-hover:opacity-100" />
               </article>
             ))}
+            {visibleServices < services.length ? (
+              <div className="flex w-full justify-center pt-2 lg:hidden">
+                <button
+                  type="button"
+                  onClick={handleLoadMore}
+                  className="group relative flex h-[48px] min-w-[170px] cursor-pointer items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)]"
+                >
+                  <span className="absolute inset-0 translate-y-full bg-primary-gradient transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                  <span className="relative z-10">تحميل المزيد</span>
+                </button>
+              </div>
+            ) : (
+              <Link
+                href="/services"
+                className="group relative flex h-[48px] min-w-[160px] items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)] lg:hidden block"
+              >
+                <span className="absolute inset-0 translate-y-full bg-primary-gradient transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                <span className="relative z-10">عرض جميع الخدمات</span>
+              </Link>
+            )}
+            <div className="hidden shrink-0 w-[300px] items-center justify-center lg:flex">
+              <div className="text-center block mx-auto">
+                <div className="group relative w-fit mx-auto cursor-pointer">
+                  <span className="absolute inset-0 rounded-full bg-red-500/20 blur-xl opacity-0 scale-75 transition-all duration-500 group-hover:opacity-100 group-hover:scale-125" />
+
+                  <Image
+                    className="relative block mx-auto transition-all duration-500 ease-out group-hover:scale-110 group-hover:-translate-y-1 group-hover:rotate-3 group-hover:drop-shadow-[0_8px_18px_rgba(239,68,68,0.35)]"
+                    src="/images/next-ad-icon.png"
+                    width={80}
+                    height={14}
+                    alt="arrow-right"
+                  />
+                </div>
+
+                <Link
+                  href="/services"
+                  className="group relative flex h-[48px] min-w-[160px] items-center justify-center overflow-hidden rounded-xl border border-white/35 bg-black/20 px-7 text-[14px] font-medium text-white backdrop-blur-sm transition-all duration-300 hover:border-transparent hover:shadow-[0_10px_30px_rgba(245,17,96,0.25)]"
+                >
+                  <span className="absolute inset-0 translate-y-full bg-primary-gradient transition-transform duration-500 ease-out group-hover:translate-y-0" />
+                  <span className="relative z-10">عرض جميع الخدمات</span>
+                </Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>

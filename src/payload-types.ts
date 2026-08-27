@@ -72,6 +72,7 @@ export interface Config {
     brands: Brand;
     projects: Project;
     services: Service;
+    'contact-us': ContactUs;
     'payload-kv': PayloadKv;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
@@ -84,6 +85,7 @@ export interface Config {
     brands: BrandsSelect<false> | BrandsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
     services: ServicesSelect<false> | ServicesSelect<true>;
+    'contact-us': ContactUsSelect<false> | ContactUsSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
@@ -211,6 +213,19 @@ export interface Service {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us".
+ */
+export interface ContactUs {
+  id: number;
+  fullName: string;
+  companyName?: string | null;
+  phone: string;
+  message: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
 export interface PayloadKv {
@@ -252,6 +267,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'services';
         value: number | Service;
+      } | null)
+    | ({
+        relationTo: 'contact-us';
+        value: number | ContactUs;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -370,6 +389,18 @@ export interface ServicesSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "contact-us_select".
+ */
+export interface ContactUsSelect<T extends boolean = true> {
+  fullName?: T;
+  companyName?: T;
+  phone?: T;
+  message?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
@@ -452,8 +483,19 @@ export interface HomePage {
   ctaSection?: {
     titleLineOne?: string | null;
     titleLineTwo?: string | null;
-    subtitle?: string | null;
-    description?: string | null;
+    tags?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    qrCode?: {
+      /**
+       * ضع رابط واتساب أو صفحة التواصل وسيتم إنشاء QR Code منه
+       */
+      url?: string | null;
+      caption?: string | null;
+    };
   };
   updatedAt?: string | null;
   createdAt?: string | null;
@@ -564,8 +606,18 @@ export interface HomePageSelect<T extends boolean = true> {
     | {
         titleLineOne?: T;
         titleLineTwo?: T;
-        subtitle?: T;
-        description?: T;
+        tags?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        qrCode?:
+          | T
+          | {
+              url?: T;
+              caption?: T;
+            };
       };
   updatedAt?: T;
   createdAt?: T;

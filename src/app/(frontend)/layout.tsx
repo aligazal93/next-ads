@@ -2,10 +2,14 @@ import React from 'react'
 import './styles.css'
 import { Header } from './components/Header'
 import Footer from './components/Footer'
+import IdeaCTA from './components/Idea'
 
 export const metadata = {
-  description: 'A blank template using Payload in a Next.js app.',
-  title: 'Payload Blank Template',
+  title: 'Next Ads',
+  description: 'Next Ads',
+  icons: {
+    icon: '/icon.png',
+  },
 }
 
 export default async function RootLayout(props: { children: React.ReactNode }) {
@@ -13,9 +17,10 @@ export default async function RootLayout(props: { children: React.ReactNode }) {
 
   return (
     <html lang="ar">
-      <body className="min-h-screen bg-black bg-[url('/images/layer.png')] bg-center bg-cover bg-top bg-no-repeat text-white">
+      <body className="min-h-screen bg-black bg-[url('/images/layer.png')] bg-center bg-contain bg-top bg-no-repeat text-white">
         <Header />
         <main>{children}</main>
+        <IdeaCTA />
         <Footer />
       </body>
     </html>

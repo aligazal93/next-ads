@@ -10,6 +10,9 @@
 body {
   font-family: 'NextFont', sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 @theme {
   --font-primary: 'NextFont', sans-serif;

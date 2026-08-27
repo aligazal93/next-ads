@@ -168,7 +168,7 @@ export const AboutSection = () => {
     <section
       ref={sectionRef}
       id="about"
-      className="relative overflow-hidden bg-black py-20 sm:py-24 lg:py-28 xl:py-32"
+      className="relative overflow-hidden bg-black py-0 sm:py-24 lg:py-28 xl:py-32"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0  bg-transparent" />
@@ -202,14 +202,14 @@ export const AboutSection = () => {
           <div ref={contentRef} dir="rtl" className="order-1 text-right lg:order-2">
             <span
               ref={badgeRef}
-              className="mb-5 block text-[14px] font-semibold text-secondary sm:text-[15px]"
+              className="mb-5 block text-[18px] font-semibold text-secondary sm:text-[15px]"
             >
               من نحن
             </span>
 
             <h2
               ref={titleRef}
-              className="max-w-[700px] text-[28px] font-bold leading-[1.55] text-white sm:text-[34px] md:text-[40px] lg:text-[38px] xl:text-[40px]"
+              className="max-w-[700px] text-[22px] font-bold leading-[2] text-white sm:text-[34px] md:text-[40px] lg:text-[38px] xl:text-[40px]"
             >
               نحن لا نصنع الأشياء التي تحمل علامتك فقط، بل نصنع الطريقة التي يراها بها الناس.
             </h2>
